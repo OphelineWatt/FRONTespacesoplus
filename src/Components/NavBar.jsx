@@ -4,8 +4,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Image } from 'react-bootstrap';
 const NavBar = () => {
-    return (  <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
+    return (  <Navbar id='navbar' expand="lg">
+      <Container >
                 <Navbar.Brand  className="d-flex align-items-center">
           <Image
             src="logoEspaceoplus.png"
@@ -14,12 +14,12 @@ const NavBar = () => {
             height="60"
             className="me-2"
           />
-          Espaces o+
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="/">Accueil</Nav.Link>
+            <Nav.Link href="/application">Application</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

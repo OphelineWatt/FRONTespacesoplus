@@ -10,8 +10,8 @@ const PlaceCard = ({ place }) => {
           className="shadow-sm"
         >
           <Card.Body>
-            <Card.Title style={{ color: "#4f7b9e" }}>{item.name}</Card.Title>
-            <Card.Subtitle className="mb-2" style={{ color: "#85bce4" }}>
+            <Card.Title>{item.name}</Card.Title>
+            <Card.Subtitle>
               {item.label}
             </Card.Subtitle>
             <Card.Text>{item.address}</Card.Text>
@@ -19,7 +19,7 @@ const PlaceCard = ({ place }) => {
               Note : {item.global_rating}
             </Card.Text>
             <div className="d-flex justify-content-between mt-3">
-              <Card.Link href="#" style={{ color: "#4f7b9e" }}>
+              <Card.Link href="#">
                 Détails
               </Card.Link>
             </div>

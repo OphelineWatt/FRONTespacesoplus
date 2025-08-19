@@ -81,10 +81,13 @@ useEffect(() => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Application Espaces o+</h1>
-      </header>
       <main>
+
+        <MapComponents
+          apiKey={Maps_API_KEY}
+          mapId={MAP_ID}
+          place={filteredPlaces}
+        />
         <select onChange={(e) => setSelectedCategory(e.target.value)}>
           <option value="">Toutes les catégories</option>
           {categories.map((category) => (
@@ -109,12 +112,6 @@ useEffect(() => {
             </option>
           ))}
         </select>
-
-        <MapComponents
-          apiKey={Maps_API_KEY}
-          mapId={MAP_ID}
-          place={filteredPlaces}
-        />
         <PlaceCard place={filteredPlaces} />
       </main>
     </div>
