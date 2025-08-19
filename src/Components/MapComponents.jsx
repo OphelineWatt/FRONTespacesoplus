@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
 import {
   APIProvider,
   Map,
   AdvancedMarker,
   Pin,
 } from "@vis.gl/react-google-maps";
-import { places } from "../Services/placeServices";
+
 
 // Définir les coordonnées du centre de la carte
 const position = { lat: 46.232193, lng: 2.209667 };

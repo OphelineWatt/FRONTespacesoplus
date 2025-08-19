@@ -55,7 +55,7 @@ const AppPage = () => {
 useEffect(() => {
   const filtered = allPlaces.filter((place) => {
     const matchCategory = selectedCategory
-      ? place.category === selectedCategory
+      ? place.label === selectedCategory
       : true;
 
     const city = extractCity(place.address);
