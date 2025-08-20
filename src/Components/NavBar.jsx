@@ -1,9 +1,9 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Button, Image } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import { Button, Image } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 const NavBar = () => {
   const navigate = useNavigate();
@@ -27,9 +27,14 @@ const NavBar = () => {
     navigate("/login");
   };
 
-    return (  <Navbar id='navbar' expand="lg">
-      <Container >
-                <Navbar.Brand  className="d-flex align-items-center">
+  const register = () => {
+    navigate("/register");
+  };
+
+  return (
+    <Navbar id="navbar" expand="lg">
+      <Container>
+        <Navbar.Brand className="d-flex align-items-center">
           <Image
             src="logoEspaceoplus.png"
             rounded
@@ -48,24 +53,36 @@ const NavBar = () => {
           <Nav className="ms-auto align-items-center">
             {token ? (
               <>
-                <span className="text-dark me-3">Bienvenue, <strong>{userName}</strong></span>
-                <NavDropdown title="Mon Compte" id="nav-dropdown" menuVariant="dark">
+                <span className="text-dark me-3">
+                  Bienvenue, <strong>{userName}</strong>
+                </span>
+                <NavDropdown
+                  title="Mon Compte"
+                  id="nav-dropdown"
+                  menuVariant="dark"
+                >
                   <NavDropdown.Item href="/profile">Profil</NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={logout}>Déconnexion</NavDropdown.Item>
+                  <NavDropdown.Item onClick={logout}>
+                    Déconnexion
+                  </NavDropdown.Item>
                 </NavDropdown>
               </>
             ) : (
-              <Button variant="primary" onClick={login}>
-                Connexion
-              </Button>
+              <div className="d-flex gap-2">
+                <Button className="custom-btn" onClick={register}>
+                  Inscription
+                </Button>
+                <Button className="custom-btn" onClick={login}>
+                  Connexion
+                </Button>
+              </div>
             )}
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
-} 
+};
 
- 
 export default NavBar;
