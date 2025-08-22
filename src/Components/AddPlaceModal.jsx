@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLoadScript } from "@react-google-maps/api";
 import { addPlace } from "../Services/placeServices";
 import { allCategory } from "../Services/categoryServices";
 import { Modal, Form, Button } from "react-bootstrap";
-import PlaceAutoComplete from "./PlaceAutocomplete";
-
-const libs = ["places"];
+import PlaceAutocomplete from "./PlaceAutocomplete";
 
 const AddPlaceModal = ({ show, onHide }) => {
   const [place, setPlace] = useState({
@@ -16,15 +13,9 @@ const AddPlaceModal = ({ show, onHide }) => {
     description: "",
     category_id: "",
   });
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   const [categories, setCategories] = useState([]);
-
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_MAPS_API_KEY,
-    libraries: libs,
-    language: "fr",
-    region: "FR",
-  });
 
   const handleCreatePlace = async (e) => {
     e.preventDefault();
@@ -68,10 +59,10 @@ const AddPlaceModal = ({ show, onHide }) => {
               required
             />
           </Form.Group>
-          <PlaceAutoComplete
-            apiKey={import.meta.env.VITE_MAPS_API_KEY}
-            onPlaceSelected={(place) => console.log(place)}
-          />
+          
+            <div className="autocomplete-control">
+              <PlaceAutocomplete onPlaceSelect={setSelectedPlace} />
+            </div>
 
           <Form.Group>
             <Form.Label>Site Web :</Form.Label>

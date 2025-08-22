@@ -10,21 +10,27 @@ import ProfilePage from './Pages/ProfilePage';
 
 
 import Footer from './Components/Footer';
+import { APIProvider } from '@vis.gl/react-google-maps';
 
 
 function App() {
   return (
 <BrowserRouter>
-  <NavBar/>
-   <Routes>
-    <Route path="/" element={<HomePage/>} />
-    <Route path="/application" element={<AppPage/>} />
-    <Route path="/login" element={<LoginPage/>} />
-    <Route path="/register" element={<RegisterPage/>} />
-    <Route path="/profile" element={<ProfilePage/>} />
-   </Routes>
-   <Footer/>
-   </BrowserRouter>
+      <APIProvider
+        apiKey={import.meta.env.VITE_MAPS_API_KEY}
+        solutionChannel='GMP_devsite_samples_v3_rgmautocomplete'
+        libraries={['places']}>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/application" element={<AppPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+        </Routes>
+        <Footer />
+      </APIProvider>
+    </BrowserRouter>
   )
 }
 

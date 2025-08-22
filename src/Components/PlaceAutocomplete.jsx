@@ -1,32 +1,36 @@
-import { useMapsLibrary } from "@vis.gl/react-google-maps";
-import { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  useMapsLibrary
+} from '@vis.gl/react-google-maps';
 
-const PlaceAutoComplete = () => {
-  const [placeAutocomplete, setPlaceAutocomplete] =useState(google.maps.places.Autocomplete);
-  const [search, setSearch] = useState("");
-  const places = useMapsLibrary("places");
+const PlaceAutocomplete = ({ onPlaceSelect }) => {
+  const [placeAutocomplete, setPlaceAutocomplete] = useState(null);
+  const inputRef = useRef(null);
+  const places = useMapsLibrary('places');
 
   useEffect(() => {
-    if (!places || !search) return;
+    if (!places || !inputRef.current) return;
 
     const options = {
-      fields: ["geometry", "name", "formatted_address"],
+      fields: ['geometry', 'name', 'formatted_address']
     };
-    console.log(new places.Autocomplete(search, options));
-    
-    setPlaceAutocomplete(new places.Autocomplete(search, options));
-  }, [places, search]);
 
+    setPlaceAutocomplete(new places.Autocomplete(inputRef.current, options));
+  }, [places]);
 
-  
   useEffect(() => {
     if (!placeAutocomplete) return;
 
-    placeAutocomplete.addListener("place_changed", () => {
-      console.log(placeAutocomplete.getPlace());
+    placeAutocomplete.addListener('place_changed', () => {
+      onPlaceSelect(placeAutocomplete.getPlace());
     });
-  }, [placeAutocomplete]);
-  return <input  placeholder="Search address" value={search} onChange={(e)=>{setSearch(e.currentTarget.value)}} />;
+  }, [onPlaceSelect, placeAutocomplete]);
+
+  return (
+    <div className="autocomplete-container">
+      <input ref={inputRef} />
+    </div>
+  );
 };
 
-export default PlaceAutoComplete;
+export default PlaceAutocomplete;
