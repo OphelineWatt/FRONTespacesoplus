@@ -42,6 +42,15 @@ const AddPlaceModal = ({ show, onHide }) => {
     fetchCategory();
   }, []);
 
+  useEffect(() => {
+    if (selectedPlace && selectedPlace.formatted_address) {
+      setPlace((prev) => ({
+        ...prev,
+        address: selectedPlace.formatted_address,
+      }));
+    }
+  }, [selectedPlace]);
+
   return (
     <Modal show={show} onHide={onHide}>
       <Form onSubmit={handleCreatePlace}>
@@ -51,7 +60,7 @@ const AddPlaceModal = ({ show, onHide }) => {
 
         <Modal.Body>
           <Form.Group>
-            <Form.Label>Nom :</Form.Label>
+            <Form.Label>Nom * :</Form.Label>
             <Form.Control
               type="text"
               value={place.name}
@@ -59,10 +68,15 @@ const AddPlaceModal = ({ show, onHide }) => {
               required
             />
           </Form.Group>
-          
-            <div className="autocomplete-control">
-              <PlaceAutocomplete onPlaceSelect={setSelectedPlace} />
-            </div>
+          <Form.Group className="mb-3">
+            <Form.Label>Adresse * :</Form.Label>
+            <PlaceAutocomplete
+              value={place.name}
+              onChange={(e) => setPlace({ ...place, name: e.target.value })}
+              onPlaceSelect={setSelectedPlace}
+              required
+            />
+          </Form.Group>
 
           <Form.Group>
             <Form.Label>Site Web :</Form.Label>
@@ -70,7 +84,6 @@ const AddPlaceModal = ({ show, onHide }) => {
               type="text"
               value={place.website}
               onChange={(e) => setPlace({ ...place, website: e.target.value })}
-              required
             />
           </Form.Group>
 
@@ -82,24 +95,23 @@ const AddPlaceModal = ({ show, onHide }) => {
               onChange={(e) =>
                 setPlace({ ...place, phone_number: e.target.value })
               }
-              required
             />
           </Form.Group>
 
           <Form.Group className="mt-3">
-            <Form.Label>Description :</Form.Label>
+            <Form.Label>Description * :</Form.Label>
             <Form.Control
               type="text"
               value={place.description}
               onChange={(e) =>
-                setDonnees({ ...place, description: e.target.value })
+                setPlace({ ...place, description: e.target.value })
               }
               required
             />
           </Form.Group>
 
           <Form.Group className="mt-3">
-            <Form.Label>Catégorie</Form.Label>
+            <Form.Label>Catégorie *</Form.Label>
             <Form.Select
               value={place.category_id}
               onChange={(e) =>
