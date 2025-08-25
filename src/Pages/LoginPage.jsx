@@ -82,7 +82,7 @@ const LoginPage = () => {
         <Toast.Header>
           <strong className="me-auto">Connexion</strong>
         </Toast.Header>
-        <Toast.Body>Connexion réussie ! 🎉</Toast.Body>
+        <Toast.Body>Connexion réussie ! </Toast.Body>
       </Toast>
     </div>
   );

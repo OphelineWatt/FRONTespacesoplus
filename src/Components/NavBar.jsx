@@ -48,7 +48,7 @@ const NavBar = () => {
           <Nav className="me-auto">
             <Nav.Link href="/">Accueil</Nav.Link>
             <Nav.Link href="/application">Application</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
+            <Nav.Link href="/admin">Page Administrateur</Nav.Link>
           </Nav>
           <Nav className="ms-auto align-items-center">
             {token ? (

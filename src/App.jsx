@@ -7,6 +7,7 @@ import AppPage from './Pages/AppPage';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
 import ProfilePage from './Pages/ProfilePage';
+import AdminPage from './Pages/AdminPage';
 
 
 import Footer from './Components/Footer';
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/admin" element={<AdminPage/>} />
         </Routes>
         <Footer />
       </APIProvider>
