@@ -1,7 +1,9 @@
 import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
 
 const PlaceCard = ({ place }) => {
-  console.log(place);
+ console.log(place);
+ 
 
   return (
     <div className="place-card-container">
@@ -16,6 +18,7 @@ const PlaceCard = ({ place }) => {
             <Card.Text className="card-rating">
               Note : {item.global_rating}
             </Card.Text>
+            <Card.Link href={`/review/${item.id_place}`}>Voir les avis</Card.Link>
 
             <div className="d-flex justify-content-end"></div>
           </Card.Body>

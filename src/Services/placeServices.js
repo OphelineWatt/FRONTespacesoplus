@@ -2,6 +2,8 @@ import API from "./api";
 
 export const places = () => API.get('/places');
 
+export const validPlaces = () => API.get('/validatedPlaces');
+
 export const addPlace = (data) => API.post('/addplace',data ,{
         headers:{
         Authorization: `${localStorage.getItem('token')}`
@@ -20,7 +22,7 @@ export const deletePlace = (idPlace) => API.delete(`/deleteplace/${idPlace}`,{
     }
 });
 
-export const updatePlace = (idPlace) => API.put(`/updatestatus/${idPlace}`,{
+export const updatePlace = (idPlace, data) => API.put(`/updatestatus/${idPlace}`,data, {
                 headers:{
         Authorization: `${localStorage.getItem('token')}`
     }

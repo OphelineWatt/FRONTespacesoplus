@@ -19,7 +19,7 @@ const fetchPlaces = async () => {
       fetchPlaces();
     }, []);
     return <>
-    <PlaceTable places={allPlaces}/>
+    <PlaceTable places={allPlaces} fetchPlaces={fetchPlaces}/>
     </>
 }
  

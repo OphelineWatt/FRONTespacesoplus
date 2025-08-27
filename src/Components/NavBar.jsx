@@ -5,14 +5,17 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { Button, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+
 const NavBar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   let userName = "";
+  let admin = "";
 
   if (token) {
     try {
       userName = jwtDecode(token).username;
+      admin = jwtDecode(token).admin;
     } catch (e) {
       console.error("Token invalide", e);
     }
@@ -36,7 +39,7 @@ const NavBar = () => {
       <Container>
         <Navbar.Brand className="d-flex align-items-center">
           <Image
-            src="logoEspaceoplus.png"
+            src="/logoEspaceoplus.png"
             rounded
             width="60"
             height="60"
@@ -48,7 +51,9 @@ const NavBar = () => {
           <Nav className="me-auto">
             <Nav.Link href="/">Accueil</Nav.Link>
             <Nav.Link href="/application">Application</Nav.Link>
+            {(admin === 1) &&(
             <Nav.Link href="/admin">Page Administrateur</Nav.Link>
+            )}
           </Nav>
           <Nav className="ms-auto align-items-center">
             {token ? (

@@ -6,6 +6,39 @@ body {
   padding: 0;
 }
 
+.container {
+  padding: 1rem;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+textarea.form-control {
+  font-size: 0.95rem;
+}
+
+button {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 576px) {
+  .card {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .d-flex.gap-2 {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+
 /* NavBar */
 
 .custom-btn {
@@ -88,6 +121,10 @@ body {
 .toast-success {
   background-color: var(--color-success) !important;
   color: #1a3c1a;
+    position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
 }
 
 .toast-warning {
@@ -391,4 +428,18 @@ button.btn-secondary:hover {
 .profile-buttons button:hover {
   background-color: #1f5a91;
 }
+
+/* place table */
+.table-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+table select {
+  width: 100%;
+  min-width: 120px;
+  max-width: 100%;
+  font-size: 0.9rem;
+}
+
 

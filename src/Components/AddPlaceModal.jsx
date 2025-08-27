@@ -20,10 +20,9 @@ const AddPlaceModal = ({ show, onHide }) => {
   const handleCreatePlace = async (e) => {
     e.preventDefault();
     try {
-      const response = await addPlace(place);
-      console.log(response.data);
-
-      onHide(); // fermer la modal
+      await addPlace(place);
+      // fermer la modal
+      onHide(); 
     } catch (error) {
       console.error("Error updating profile", error);
     }

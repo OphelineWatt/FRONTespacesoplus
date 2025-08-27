@@ -1,17 +1,20 @@
-import { Button, Table } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Form, Table, Row, Col } from "react-bootstrap";
+import Toast from "react-bootstrap/Toast";
+import { deletePlace, updatePlace } from "../Services/placeServices";
 
-import { deletePlace } from "../Services/placeServices";
 
-const PlaceTable = ({places}) => {
+const PlaceTable = ({ places, fetchPlaces }) => {
+  const [filterText, setFilterText] = useState("");
+  const [filterStatus, setFilterStatus] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
-      const handleDeletePlace = async (idEmploye) => {
+  const handleDeletePlace = async (idPlace) => {
     try {
       const confirm = window.confirm("Confirmer la suppression ?");
       if (!confirm) return;
 
-      await deletePlace(idEmploye);
-     
-
+      await deletePlace(idPlace);
       location.reload();
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
@@ -19,55 +22,100 @@ const PlaceTable = ({places}) => {
     }
   };
 
-  console.log(places);
-  
-  return (
-    <Table>
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Adresse</th>
-          <th>Note</th>
-          <th>Statut</th>
-          <th>Gestion</th>
-        </tr>
-      </thead>
-      <tbody>
-        {places.map((place, index) => (
-          <tr
-            key={index}
-            style={{ backgroundColor: index % 2 === 0 ? "#FCEED6" : "#FFF5E8" }}
-          >
-            <td>{place.name}</td>
-            <td>{place.address}</td>
-            <td>{place.global_rating}</td>
-            <td>{place.status}</td>
-              <td>
-                <div className="d-flex justify-content-center gap-2">
-                  <Button
-                    variant="outline-danger"
-                    size="sm"
-                    onClick={() => handleDeletePlace(place.id_place)}
-                    className="btn-poubelle d-flex align-items-center gap-1"
-                  >
-                    <i className="bi bi-trash"></i> Supprimer
-                  </Button>
+  // Filtrage des noms de lieux
+  const filteredPlaces = places.filter((place) => {
+    const matchText = place.name.toLowerCase().includes(filterText.toLowerCase());
+    const matchStatus = filterStatus ? place.status === filterStatus : true;
+    return matchText && matchStatus;
+  });
 
-                  <Button
-                    variant="outline-secondary"
-                    size="sm"
-                    onClick={() => gestionOuvertureModal(place)}
-                    className="btn-modifier d-flex align-items-center gap-1"
-                  >
-                    <i className="bi bi-pencil-square"></i> Modifier
-                  </Button>
-                </div>
-              </td>
-            
+  return (
+    <div className="table-container">
+      <Row className="mb-3 gy-2">
+        <Col xs={12} md={6}>
+          <Form.Control
+            type="text"
+            placeholder="Filtrer par nom..."
+            value={filterText}
+            onChange={(e) => setFilterText(e.target.value)}
+          />
+        </Col>
+        <Col xs={12} md={6}>
+          <Form.Select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+          >
+            <option value="">Tous les statuts</option>
+            <option value="En attente">En attente</option>
+            <option value="Validée">Validée</option>
+            <option value="Refusée">Refusée</option>
+          </Form.Select>
+        </Col>
+      </Row>
+
+     
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Statut</th>
+            <th>Gestion</th>
           </tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody>
+          {filteredPlaces.map((place, index) => (
+            <tr key={index}>
+              <td>{place.name}</td>
+              <td>{place.address}</td>
+              <td>
+                <Form.Select
+                  size="sm"
+                  value={place.status}
+                  onChange={async (e) => {
+                    const newStatus = e.target.value;
+                    try {
+                      await updatePlace(place.id_place, { status: newStatus });
+                      fetchPlaces();
+                      setShowToast(true);
+                    } catch (error) {
+                      console.error("Erreur lors de la maj du statut :", error);
+                      alert("Échec de la mise à jour du statut");
+                    }
+                  }}
+                >
+                  <option value="En attente">En attente</option>
+                  <option value="Validée">Validée</option>
+                  <option value="Refusée">Refusée</option>
+                </Form.Select>
+              </td>
+              <td>
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  onClick={() => handleDeletePlace(place.id_place)}
+                  className="d-flex align-items-center gap-1"
+                >
+                   Supprimer
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      <Toast
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        delay={3000}
+        autohide
+        className="toast-success"
+      >
+        <Toast.Header>
+          <strong className="me-auto">Statut</strong>
+        </Toast.Header>
+        <Toast.Body>Mise à jour réussie ! </Toast.Body>
+      </Toast>
+    </div>
   );
 };
 

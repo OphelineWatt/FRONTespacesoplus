@@ -2,16 +2,20 @@ import './App.css'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import NavBar from './Components/NavBar';
 
+
 import HomePage from './Pages/HomePage';
 import AppPage from './Pages/AppPage';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
 import ProfilePage from './Pages/ProfilePage';
 import AdminPage from './Pages/AdminPage';
+import ReviewPage from './Pages/ReviewPage';
 
 
 import Footer from './Components/Footer';
+
 import { APIProvider } from '@vis.gl/react-google-maps';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
 function App() {
@@ -29,6 +33,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/admin" element={<AdminPage/>} />
+          <Route path="/review/:place_id" element={<ReviewPage/>} />
         </Routes>
         <Footer />
       </APIProvider>
