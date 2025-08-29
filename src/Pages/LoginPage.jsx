@@ -1,18 +1,19 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
-import Toast from "react-bootstrap/Toast";
+
 
 import { login } from "../Services/userServices";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [userData, setUserData] = useState({
     mail: "",
     password: "",
   });
-  const [showToast, setShowToast] = useState(false);
 
   const navigate = useNavigate();
 
@@ -22,11 +23,10 @@ const LoginPage = () => {
       const response = await login(userData);
 
       localStorage.setItem("token", response.data.token);
-      
-      setShowToast(true);
 
       navigate("/application");
     } catch (error) {
+      toast.error("email ou mot de passe invalide");
       console.error(error);
     }
   };
@@ -72,18 +72,7 @@ const LoginPage = () => {
           </div>
         </Card.Body>
       </Card>
-      <Toast
-        onClose={() => setShowToast(false)}
-        show={showToast}
-        delay={3000}
-        autohide
-        className="toast-success"
-      >
-        <Toast.Header>
-          <strong className="me-auto">Connexion</strong>
-        </Toast.Header>
-        <Toast.Body>Connexion réussie ! </Toast.Body>
-      </Toast>
+      
     </div>
   );
 };

@@ -5,6 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { Button, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { checkToken } from "../Services/authService";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const NavBar = () => {
 
   if (token) {
     try {
+      checkToken()
       userName = jwtDecode(token).username;
       admin = jwtDecode(token).admin;
     } catch (e) {
@@ -28,13 +30,6 @@ const NavBar = () => {
     navigate("/");
   };
 
-  const login = () => {
-    navigate("/login");
-  };
-
-  const register = () => {
-    navigate("/register");
-  };
 
   return (
     <Navbar id="navbar" expand="lg">
@@ -51,10 +46,10 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Accueil</Nav.Link>
-            <Nav.Link href="/application">Application</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/') }}>Accueil</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/application') }}>Application</Nav.Link>
             {(admin === 1) &&(
-            <Nav.Link href="/admin">Page Administrateur</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/admin') }}>Page Administrateur</Nav.Link>
             )}
           </Nav>
           <Nav className="ms-auto align-items-center">
@@ -77,10 +72,10 @@ const NavBar = () => {
               </>
             ) : (
               <div className="d-flex gap-2">
-                <Button className="custom-btn" onClick={register}>
+                <Button className="custom-btn" onClick={() => { navigate('/register') }}>
                   Inscription
                 </Button>
-                <Button className="custom-btn" onClick={login}>
+                <Button className="custom-btn" onClick={() => { navigate('/login') }}>
                   Connexion
                 </Button>
               </div>

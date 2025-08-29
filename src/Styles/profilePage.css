@@ -1,0 +1,88 @@
+.profile-container {
+  background-color: var(--color-accent);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.profile-dropdown {
+  background-color: var(--color-secondary);
+  color: var(--color-text-dark);
+  border: 1px solid var(--color-primary);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.profile-card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-secondary);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease;
+
+  
+}
+
+.profile-card:hover {
+  transform: scale(1.01);
+}
+
+.profile-card:hover.list-group-item {
+  background-color: transparent;
+  color: var(--color-text-dark);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+
+.empty-message {
+  color: var(--color-text-light);
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+.profile-container-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.profile-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.profile-button {
+  background-color: #1f5a91;
+}
+
+
+#profile-button-delete {
+  color: var(--color-error);
+  width: 20% ;
+}
+
+#profile-button-delete:hover {
+   background-color: var(--color-error);
+   color: white;
+}
+
+

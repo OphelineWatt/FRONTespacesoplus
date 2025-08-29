@@ -7,7 +7,8 @@ import { contribution } from "../Services/placeServices";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { ChevronDown, ChevronUp } from "react-bootstrap-icons";
-import { Favorites,deleteFavorite } from "../Services/favoriteServices";
+import { Favorites, deleteFavorite } from "../Services/favoriteServices";
+import "../Styles/ProfilePage.css";
 
 const ProfilePage = () => {
   const [showModalAddPlace, setShowModalAddPlace] = useState(false);
@@ -47,15 +48,14 @@ const ProfilePage = () => {
   };
 
   const handleDeleteFavorite = async (idPlace) => {
-      try {
-  
-        await deleteFavorite(idPlace);
-        fetchFavorites();
-      } catch (error) {
-        console.error("Erreur lors de la suppression :", error);
-        alert("Échec de la suppression");
-      }
-    };
+    try {
+      await deleteFavorite(idPlace);
+      fetchFavorites();
+    } catch (error) {
+      console.error("Erreur lors de la suppression :", error);
+      alert("Échec de la suppression");
+    }
+  };
 
   useEffect(() => {
     fetchUsers();
@@ -65,18 +65,24 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-container">
-      <div className="profile-buttons">
-        <Button onClick={() => setShowModalUser(true)}>
+      <div className="profile-container-buttons">
+        <Button
+          className="profile-button"
+          onClick={() => setShowModalUser(true)}
+        >
           Voir mes informations
         </Button>
 
-        <Button onClick={() => setShowModalAddPlace(true)}>
+        <Button
+          className="profile-button"
+          onClick={() => setShowModalAddPlace(true)}
+        >
           Demande d'ajout d'un lieu
         </Button>
 
         {/* Bouton Contributions */}
         <div
-          className="contributions-toggle"
+          className="profile-dropdown"
           onClick={() => {
             setIsOpenContributions(!isOpenContributions);
             setIsOpenFavorites(false); // Ferme les favoris si ouverts
@@ -91,7 +97,7 @@ const ProfilePage = () => {
           <>
             {placeByUser.length > 0 ? (
               placeByUser.map((place) => (
-                <Card key={place.id_place} className="card-contribution">
+                <Card key={place.id_place} className="profile-card">
                   <ListGroup variant="flush">
                     <ListGroup.Item>
                       <strong>Nom:</strong> {place.name} <br />
@@ -111,7 +117,7 @@ const ProfilePage = () => {
 
         {/* Bouton Favoris  */}
         <div
-          className="contributions-toggle"
+          className="profile-dropdown"
           onClick={() => {
             setIsOpenFavorites(!isOpenFavorites);
             setIsOpenContributions(false); // Ferme les contributions si ouverts
@@ -126,21 +132,23 @@ const ProfilePage = () => {
           <>
             {favorite.length > 0 ? (
               favorite.map((item) => (
-                <Card key={item.place_id} className="card-contribution">
+                <Card key={item.place_id} className="profile-card">
                   <ListGroup variant="flush">
                     <ListGroup.Item>
                       <strong>Nom:</strong> {item.name} <br />
                       <strong>Adresse:</strong> {item.address} <br />
-                      <strong>Catégorie:</strong> {item.label}
+                      <strong>Catégorie:</strong> {item.label}<br />
+                      <div className="d-flex align-items-end justify-content-end">
+                    <Button
+                      variant="outline-danger"
+                      size="sm"
+                      onClick={() => handleDeleteFavorite(item.place_id)}
+                      id="profile-button-delete"
+                    >
+                      <i class="bi bi-trash-fill"></i>
+                    </Button>
+                    </div>
                     </ListGroup.Item>
-                  <Button
-                  variant="outline-danger"
-                  size="sm"
-                  onClick={() => handleDeleteFavorite(item.place_id)}
-                  className="d-flex align-items-center gap-1"
-                >
-                   Supprimer
-                </Button>
                   </ListGroup>
                 </Card>
               ))

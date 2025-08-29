@@ -13,6 +13,7 @@ import { PencilSquare, CheckLg, XLg, KeyFill } from "react-bootstrap-icons";
 
 import { updateUsername, updateMail, updatePassword } from "../Services/userServices";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const UserModal = ({ show, onHide, initialUser }) => {
   const [user, setUser] = useState({ username: "", mail: "" });
@@ -54,6 +55,8 @@ const UserModal = ({ show, onHide, initialUser }) => {
       }
 
       await Promise.all(updatePromises);
+
+      
 
       setUser({
         username: editedUsername,
