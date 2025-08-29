@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import SearchNamePlaces from "../Components/SearchNamePlaces";
 
 const Maps_API_KEY = import.meta.env.VITE_MAPS_API_KEY;
 const MAP_ID = import.meta.env.VITE_MAP_ID;
@@ -18,8 +19,7 @@ const AppPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedRating, setSelectedRating] = useState("");
-
-  const [filteredPlaces, setFilteredPlaces] = useState([]);
+  const [filterText, setFilterText] = useState("");
 
   const extractCity = (address) => {
     const parts = address.split(",");
@@ -47,28 +47,31 @@ const AppPage = () => {
     }
   };
 
+  const filteredPlaces = allPlaces.filter((place) => {
+    const matchText = place.name
+      .toLowerCase()
+      .includes(filterText.toLowerCase());
+
+    const matchCategory = selectedCategory
+      ? place.label === selectedCategory
+      : true;
+
+    const city = extractCity(place.address);
+    const matchCity = selectedCity
+      ? city.toLowerCase() === selectedCity.toLowerCase()
+      : true;
+
+    const matchRating = selectedRating
+      ? Math.round(place.global_rating) === parseInt(selectedRating)
+      : true;
+
+    return matchCategory && matchCity && matchRating && matchText;
+  });
+
   useEffect(() => {
     fetchPlaces();
     fetchCategory();
   }, []);
-
-  useEffect(() => {
-    const filtered = allPlaces.filter((place) => {
-      const matchCategory = selectedCategory
-        ? place.label === selectedCategory
-        : true;
-      const city = extractCity(place.address);
-      const matchCity = selectedCity
-        ? city.toLowerCase() === selectedCity.toLowerCase()
-        : true;
-      const matchRating = selectedRating
-        ? Math.round(place.global_rating) === parseInt(selectedRating)
-        : true;
-      return matchCategory && matchCity && matchRating;
-    });
-
-    setFilteredPlaces(filtered);
-  }, [selectedCategory, selectedCity, selectedRating, allPlaces]);
 
   return (
     <Container fluid className="app-page-container py-4">
@@ -80,6 +83,7 @@ const AppPage = () => {
 
       <Row className="filter-row my-4 justify-content-center">
         <Col xs={12} md={3}>
+        <SearchNamePlaces value={filterText} onChange={setFilterText} />
           <Form.Select
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="mb-2"

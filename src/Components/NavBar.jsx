@@ -21,7 +21,6 @@ const NavBar = () => {
     }
   }
 
-  console.log(token);
   
 
   const logout = () => {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Form, Table, Row, Col } from "react-bootstrap";
 import Toast from "react-bootstrap/Toast";
 import { deletePlace, updatePlace } from "../Services/placeServices";
-
+import SearchNamePlaces from "./SearchNamePlaces";
 
 const PlaceTable = ({ places, fetchPlaces }) => {
   const [filterText, setFilterText] = useState("");
@@ -22,9 +22,11 @@ const PlaceTable = ({ places, fetchPlaces }) => {
     }
   };
 
-  // Filtrage des noms de lieux
+  // Filtrage des noms de lieux et statuts
   const filteredPlaces = places.filter((place) => {
-    const matchText = place.name.toLowerCase().includes(filterText.toLowerCase());
+    const matchText = place.name
+      .toLowerCase()
+      .includes(filterText.toLowerCase());
     const matchStatus = filterStatus ? place.status === filterStatus : true;
     return matchText && matchStatus;
   });
@@ -33,12 +35,7 @@ const PlaceTable = ({ places, fetchPlaces }) => {
     <div className="table-container">
       <Row className="mb-3 gy-2">
         <Col xs={12} md={6}>
-          <Form.Control
-            type="text"
-            placeholder="Filtrer par nom..."
-            value={filterText}
-            onChange={(e) => setFilterText(e.target.value)}
-          />
+          <SearchNamePlaces value={filterText} onChange={setFilterText} />
         </Col>
         <Col xs={12} md={6}>
           <Form.Select
@@ -53,7 +50,6 @@ const PlaceTable = ({ places, fetchPlaces }) => {
         </Col>
       </Row>
 
-     
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -96,7 +92,7 @@ const PlaceTable = ({ places, fetchPlaces }) => {
                   onClick={() => handleDeletePlace(place.id_place)}
                   className="d-flex align-items-center gap-1"
                 >
-                   Supprimer
+                  Supprimer
                 </Button>
               </td>
             </tr>
