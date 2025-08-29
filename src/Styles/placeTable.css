@@ -1,0 +1,11 @@
+.table-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+table select {
+  width: 100%;
+  min-width: 120px;
+  max-width: 100%;
+  font-size: 0.9rem;
+}

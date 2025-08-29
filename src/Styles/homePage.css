@@ -1,0 +1,59 @@
+.header {
+  background-color: var(--color-secondary);
+  background-size: cover;
+  background-position: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--color-text-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.header h2 {
+  font-size: 1.2rem;
+  max-width: 700px;
+  color: var(--color-text-light);
+}
+
+/* BOUTONS */
+.header .btn {
+  margin: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  border-radius: 0.4rem;
+  background-color: var(--color-primary);
+  border: none;
+}
+
+.header .btn:hover {
+  background-color: #1f5a90;
+}
+
+/* SECTION À PROPOS */
+#about > h3 {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--color-primary);
+}
+
+#about > p {
+  max-width: 800px;
+  margin: 1rem auto 3rem auto;
+  padding: 1rem;
+  background-color: var(--color-bg-alt);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 0.5rem;
+  line-height: 1.6;
+  color: var(--color-text-dark);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}

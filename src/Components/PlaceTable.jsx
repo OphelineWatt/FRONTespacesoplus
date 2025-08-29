@@ -4,6 +4,8 @@ import Toast from "react-bootstrap/Toast";
 import { deletePlace, updatePlace } from "../Services/placeServices";
 import SearchNamePlaces from "./SearchNamePlaces";
 
+import "../Styles/placeTable.css"
+
 
 const PlaceTable = ({ places, fetchPlaces }) => {
   const [filterText, setFilterText] = useState("");

@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import SearchNamePlaces from "../Components/SearchNamePlaces";
+import "../Styles/applicationPage.css"
 
 const Maps_API_KEY = import.meta.env.VITE_MAPS_API_KEY;
 const MAP_ID = import.meta.env.VITE_MAP_ID;

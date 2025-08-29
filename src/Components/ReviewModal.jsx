@@ -2,6 +2,7 @@ import { Modal, Form, Button } from "react-bootstrap";
 import { addReview } from "../Services/reviewServices";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import "../Styles/modal.css"
 
 const ReviewModal = ({ show, onHide }) => {
   const { place_id } = useParams();

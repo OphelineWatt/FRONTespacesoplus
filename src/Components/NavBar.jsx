@@ -6,6 +6,7 @@ import { Button, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { checkToken } from "../Services/authService";
+import "../Styles/modal.css"
 
 const NavBar = () => {
   const navigate = useNavigate();

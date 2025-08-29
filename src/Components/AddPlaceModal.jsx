@@ -3,6 +3,7 @@ import { addPlace } from "../Services/placeServices";
 import { allCategory } from "../Services/categoryServices";
 import { Modal, Form, Button } from "react-bootstrap";
 import PlaceAutocomplete from "./PlaceAutocomplete";
+import "../Styles/modal.css"
 
 const AddPlaceModal = ({ show, onHide }) => {
   const [place, setPlace] = useState({

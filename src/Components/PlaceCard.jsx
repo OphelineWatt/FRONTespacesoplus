@@ -4,6 +4,7 @@ import { addFavorite } from "../Services/favoriteServices";
 import { toast } from "react-toastify";
 import { checkToken } from "../Services/authService";
 import { useEffect, useState } from "react";
+import "../Styles/placeCard.css"
 
 const PlaceCard = ({ place }) => {
 

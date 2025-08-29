@@ -1,4 +1,6 @@
 import Button from 'react-bootstrap/Button';
+import "../Styles/homePage.css"
+
 const HomePage = () => {
     return <>
         <header className="header">

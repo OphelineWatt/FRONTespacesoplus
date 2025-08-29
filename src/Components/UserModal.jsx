@@ -10,6 +10,7 @@ import {
   ToastContainer,
 } from "react-bootstrap";
 import { PencilSquare, CheckLg, XLg, KeyFill } from "react-bootstrap-icons";
+import "../Styles/modal.css"
 
 import { updateUsername, updateMail, updatePassword } from "../Services/userServices";
 import { useNavigate } from "react-router-dom";
