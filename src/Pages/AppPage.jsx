@@ -81,10 +81,12 @@ const AppPage = () => {
         mapId={MAP_ID}
         place={filteredPlaces}
       />
-
+ <div className="search-bar">
+        <SearchNamePlaces value={filterText} onChange={setFilterText} className="search-bar"
+ />
+ </div>
       <Row className="filter-row my-4 justify-content-center">
         <Col xs={12} md={3}>
-        <SearchNamePlaces value={filterText} onChange={setFilterText} />
           <Form.Select
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="mb-2"

@@ -9,6 +9,8 @@ import Card from "react-bootstrap/Card";
 import { ChevronDown, ChevronUp } from "react-bootstrap-icons";
 import { Favorites, deleteFavorite } from "../Services/favoriteServices";
 import "../Styles/ProfilePage.css";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const ProfilePage = () => {
   const [showModalAddPlace, setShowModalAddPlace] = useState(false);
@@ -137,17 +139,27 @@ const ProfilePage = () => {
                     <ListGroup.Item>
                       <strong>Nom:</strong> {item.name} <br />
                       <strong>Adresse:</strong> {item.address} <br />
-                      <strong>Catégorie:</strong> {item.label}<br />
+                      <strong>Catégorie:</strong> {item.label}
+                      <br />
                       <div className="d-flex align-items-end justify-content-end">
-                    <Button
-                      variant="outline-danger"
-                      size="sm"
-                      onClick={() => handleDeleteFavorite(item.place_id)}
-                      id="profile-button-delete"
-                    >
-                      <i class="bi bi-trash-fill"></i>
-                    </Button>
-                    </div>
+                        <OverlayTrigger
+                          placement="top"
+                          overlay={
+                            <Tooltip id="tooltip-top">
+                              Supprimer
+                            </Tooltip>
+                          }
+                        >
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={() => handleDeleteFavorite(item.place_id)}
+                            id="profile-button-delete"
+                          >
+                            <i class="bi bi-trash-fill"></i>
+                          </Button>
+                        </OverlayTrigger>
+                      </div>
                     </ListGroup.Item>
                   </ListGroup>
                 </Card>

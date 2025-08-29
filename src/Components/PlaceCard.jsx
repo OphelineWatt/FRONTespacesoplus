@@ -1,13 +1,12 @@
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import { addFavorite } from "../Services/favoriteServices";
 import { toast } from "react-toastify";
 import { checkToken } from "../Services/authService";
 import { useEffect, useState } from "react";
-import "../Styles/placeCard.css"
+import "../Styles/placeCard.css";
 
 const PlaceCard = ({ place }) => {
-
   const [isLoggedIn, setIsLoggedIn] = useState(checkToken());
 
   const handleAddFavorites = async (placeId) => {
@@ -22,9 +21,9 @@ const PlaceCard = ({ place }) => {
     }
   };
 
-    useEffect(() => {
-        setIsLoggedIn(checkToken());
-    }, []);
+  useEffect(() => {
+    setIsLoggedIn(checkToken());
+  }, []);
 
   return (
     <div className="place-card-container">
@@ -33,11 +32,22 @@ const PlaceCard = ({ place }) => {
           <Card.Body>
             <div className="d-flex justify-content-between">
               <Card.Title className="card-title">{item.name}</Card.Title>
-                          {(isLoggedIn) &&(
-              <Button onClick={() => handleAddFavorites(item.id_place)}>
-                <i class="bi bi-bookmark-heart"></i>
-              </Button>
-            )}
+              {isLoggedIn && (
+                <Button
+                  id="favorite-button"
+                  variant="outline-danger"
+                  onClick={() => handleAddFavorites(item.id_place)}
+                >
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={
+                      <Tooltip id="tooltip-top">Ajouter aux favoris</Tooltip>
+                    }
+                  >
+                    <i className="bi bi-bookmark-heart"></i>
+                  </OverlayTrigger>
+                </Button>
+              )}
             </div>
             <Card.Subtitle className="card-subtitle mb-2 text-muted">
               {item.label}

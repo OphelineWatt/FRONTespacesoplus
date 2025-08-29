@@ -49,3 +49,17 @@
 .card-link:hover {
   text-decoration: underline;
 }
+
+#favorite-button {
+  border: none;
+  color: var(--color-error);
+}
+
+#favorite-button:hover {
+  background-color: white;
+  scale: 1.2;
+}
+
+#favorite-button i {
+  font-size: 1.5rem;
+}

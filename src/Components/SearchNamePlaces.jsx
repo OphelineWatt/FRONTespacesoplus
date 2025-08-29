@@ -1,18 +1,22 @@
 import { Col, Form } from "react-bootstrap";
 
+import "../Styles/searchNamePlaces.css"
+
 const SearchNamePlaces = ({ value, onChange}) => {
 
 
     return <>
     
-        <Col xs={12} md={6}>
-          <Form.Control
-            type="text"
-            placeholder="Filtrer par nom..."
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-          />
-        </Col>
+     <div className="search-wrapper">
+      <Form.Control
+        type="text"
+        placeholder="Filtrer par nom..."
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="search-bar"
+      />
+    </div>
+
 
         </>;
 }

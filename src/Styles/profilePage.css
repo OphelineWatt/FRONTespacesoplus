@@ -77,12 +77,16 @@
 
 #profile-button-delete {
   color: var(--color-error);
+  /* border: none; */
   width: 20% ;
 }
 
 #profile-button-delete:hover {
-   background-color: var(--color-error);
-   color: white;
+   background-color: white;
+   scale: 1.2;
 }
 
+#profile-button-delete i{
+font-size: 1.25rem;
+}
 
