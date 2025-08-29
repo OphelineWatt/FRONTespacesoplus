@@ -9,7 +9,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
 import { jwtDecode } from "jwt-decode";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import { checkToken } from "../Services/authService";
 
 const ReviewPage = () => {
   const [showModalReview, setShowModalReview] = useState(false);
@@ -19,6 +19,7 @@ const ReviewPage = () => {
   const { place_id } = useParams();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const [isLoggedIn, setIsLoggedIn] = useState(checkToken());
 
   let admin = "";
   let idUser = "";
@@ -68,6 +69,7 @@ const ReviewPage = () => {
 
   useEffect(() => {
     fetchReviews();
+    setIsLoggedIn(checkToken());
   }, []);
 
   return (
@@ -84,13 +86,18 @@ const ReviewPage = () => {
           <i className="bi bi-x-lg fs-5"></i>
         </Button>
       </div>
-
       {/* Bouton d'ajout d'avis */}
-      <div className="text-center my-3">
-        <Button variant="primary" size="sm" onClick={() => setShowModalReview(true)}>
-          <i className="bi bi-chat-left-text me-2"></i>Donne ton avis
-        </Button>
-      </div>
+      {isLoggedIn && (
+        <div className="text-center my-3">
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={() => setShowModalReview(true)}
+          >
+            <i className="bi bi-chat-left-text me-2"></i>Donne ton avis
+          </Button>
+        </div>
+      )}
 
       {/* Liste des avis */}
       <div className="row justify-content-center">
@@ -136,7 +143,7 @@ const ReviewPage = () => {
                               onClick={() => handleSaveEdit(review.id_reviews)}
                               title="Sauvegarder"
                             >
-                               <i className="bi bi-check-lg"></i>
+                              <i className="bi bi-check-lg"></i>
                             </Button>
                           ) : (
                             <Button
@@ -145,7 +152,7 @@ const ReviewPage = () => {
                               onClick={() => handleEditClick(review)}
                               title="Modifier"
                             >
-                            Modifier  <i className="bi bi-pencil-square"></i>
+                              Modifier <i className="bi bi-pencil-square"></i>
                             </Button>
                           )}
                         </>
@@ -163,7 +170,10 @@ const ReviewPage = () => {
         </div>
       </div>
 
-      <ReviewModal show={showModalReview} onHide={() => setShowModalReview(false)} />
+      <ReviewModal
+        show={showModalReview}
+        onHide={() => setShowModalReview(false)}
+      />
     </div>
   );
 };

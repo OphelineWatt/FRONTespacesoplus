@@ -2,8 +2,12 @@ import { Button } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import { addFavorite } from "../Services/favoriteServices";
 import { toast } from "react-toastify";
+import { checkToken } from "../Services/authService";
+import { useEffect, useState } from "react";
 
 const PlaceCard = ({ place }) => {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(checkToken());
 
   const handleAddFavorites = async (placeId) => {
     try {
@@ -17,6 +21,10 @@ const PlaceCard = ({ place }) => {
     }
   };
 
+    useEffect(() => {
+        setIsLoggedIn(checkToken());
+    }, []);
+
   return (
     <div className="place-card-container">
       {place.map((item, index) => (
@@ -24,9 +32,11 @@ const PlaceCard = ({ place }) => {
           <Card.Body>
             <div className="d-flex justify-content-between">
               <Card.Title className="card-title">{item.name}</Card.Title>
+                          {(isLoggedIn) &&(
               <Button onClick={() => handleAddFavorites(item.id_place)}>
                 <i class="bi bi-bookmark-heart"></i>
               </Button>
+            )}
             </div>
             <Card.Subtitle className="card-subtitle mb-2 text-muted">
               {item.label}
