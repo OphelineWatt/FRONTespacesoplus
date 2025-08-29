@@ -7,18 +7,22 @@ import { contribution } from "../Services/placeServices";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { ChevronDown, ChevronUp } from "react-bootstrap-icons";
+import { Favorites,deleteFavorite } from "../Services/favoriteServices";
 
 const ProfilePage = () => {
   const [showModalAddPlace, setShowModalAddPlace] = useState(false);
   const [users, setUsers] = useState([]);
   const [showModalUser, setShowModalUser] = useState(false);
   const [placeByUser, setPlaceByUser] = useState([]);
-  const [isOpen, setIsOpen] = useState(false); // 👈 dropdown state
+  const [favorite, setFavorite] = useState([]);
+  // ouverture du dropdawn
+  const [isOpenContributions, setIsOpenContributions] = useState(false);
+  const [isOpenFavorites, setIsOpenFavorites] = useState(false);
 
   const fetchUsers = async () => {
     try {
-      const reponse = await profileUser();
-      setUsers(reponse.data);
+      const response = await profileUser();
+      setUsers(response.data);
     } catch (error) {
       console.error("Erreur récupération des infos utilisateur:", error);
     }
@@ -26,16 +30,37 @@ const ProfilePage = () => {
 
   const fetchContribution = async () => {
     try {
-      const reponse = await contribution();
-      setPlaceByUser(reponse.data[0]);
+      const response = await contribution();
+      setPlaceByUser(response.data[0]);
     } catch (error) {
       console.error("Erreur récupération des lieux de l'utilisateur:", error);
     }
   };
 
+  const fetchFavorites = async () => {
+    try {
+      const response = await Favorites();
+      setFavorite(response.data[0]);
+    } catch (error) {
+      console.error("Erreur récupération des lieux de l'utilisateur:", error);
+    }
+  };
+
+  const handleDeleteFavorite = async (idPlace) => {
+      try {
+  
+        await deleteFavorite(idPlace);
+        fetchFavorites();
+      } catch (error) {
+        console.error("Erreur lors de la suppression :", error);
+        alert("Échec de la suppression");
+      }
+    };
+
   useEffect(() => {
     fetchUsers();
     fetchContribution();
+    fetchFavorites();
   }, []);
 
   return (
@@ -49,37 +74,84 @@ const ProfilePage = () => {
           Demande d'ajout d'un lieu
         </Button>
 
+        {/* Bouton Contributions */}
         <div
           className="contributions-toggle"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            setIsOpenContributions(!isOpenContributions);
+            setIsOpenFavorites(false); // Ferme les favoris si ouverts
+          }}
         >
           Voir mes contributions
-          {isOpen ? <ChevronUp /> : <ChevronDown />}
+          {isOpenContributions ? <ChevronUp /> : <ChevronDown />}
         </div>
+
+        {/* Section Contributions */}
+        {isOpenContributions && (
+          <>
+            {placeByUser.length > 0 ? (
+              placeByUser.map((place) => (
+                <Card key={place.id_place} className="card-contribution">
+                  <ListGroup variant="flush">
+                    <ListGroup.Item>
+                      <strong>Nom:</strong> {place.name} <br />
+                      <strong>Adresse:</strong> {place.address} <br />
+                      <strong>Statut:</strong> {place.status}
+                    </ListGroup.Item>
+                  </ListGroup>
+                </Card>
+              ))
+            ) : (
+              <p className="empty-message">
+                Aucune contribution pour le moment.
+              </p>
+            )}
+          </>
+        )}
+
+        {/* Bouton Favoris  */}
+        <div
+          className="contributions-toggle"
+          onClick={() => {
+            setIsOpenFavorites(!isOpenFavorites);
+            setIsOpenContributions(false); // Ferme les contributions si ouverts
+          }}
+        >
+          Voir mes favoris
+          {isOpenFavorites ? <ChevronUp /> : <ChevronDown />}
+        </div>
+
+        {/* Section Favoris */}
+        {isOpenFavorites && (
+          <>
+            {favorite.length > 0 ? (
+              favorite.map((item) => (
+                <Card key={item.place_id} className="card-contribution">
+                  <ListGroup variant="flush">
+                    <ListGroup.Item>
+                      <strong>Nom:</strong> {item.name} <br />
+                      <strong>Adresse:</strong> {item.address} <br />
+                      <strong>Catégorie:</strong> {item.label}
+                    </ListGroup.Item>
+                  <Button
+                  variant="outline-danger"
+                  size="sm"
+                  onClick={() => handleDeleteFavorite(item.place_id)}
+                  className="d-flex align-items-center gap-1"
+                >
+                   Supprimer
+                </Button>
+                  </ListGroup>
+                </Card>
+              ))
+            ) : (
+              <p className="empty-message">Aucun favoris pour le moment.</p>
+            )}
+          </>
+        )}
       </div>
 
-
-
-      {isOpen && (
-        <>
-          {placeByUser.length > 0 ? (
-            placeByUser.map((place) => (
-              <Card key={place.id_place} className="card-contribution">
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <strong>Nom:</strong> {place.name} <br />
-                    <strong>Adresse:</strong> {place.address} <br />
-                    <strong>Statut:</strong> {place.status}
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
-            ))
-          ) : (
-            <p className="empty-message">Aucune contribution pour le moment.</p>
-          )}
-        </>
-      )}
-
+      {/* Modals */}
       <UserModal
         show={showModalUser}
         onHide={() => setShowModalUser(false)}

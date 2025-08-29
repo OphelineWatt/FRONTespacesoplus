@@ -98,7 +98,7 @@ const RegisterPage = () => {
           <Toast.Header>
             <strong className="me-auto">Inscription</strong>
           </Toast.Header>
-          <Toast.Body>Inscription réussie ! Redirection en cours... 🚀</Toast.Body>
+          <Toast.Body>Inscription réussie ! Redirection en cours...</Toast.Body>
         </Toast>
       </ToastContainer>
     </div>

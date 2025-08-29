@@ -1,6 +1,7 @@
 import './App.css'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import NavBar from './Components/NavBar';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 import HomePage from './Pages/HomePage';
@@ -16,6 +17,7 @@ import Footer from './Components/Footer';
 
 import { APIProvider } from '@vis.gl/react-google-maps';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { ToastContainer, Bounce } from 'react-toastify';
 
 
 function App() {
@@ -37,6 +39,19 @@ function App() {
         </Routes>
         <Footer />
       </APIProvider>
+              <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
     </BrowserRouter>
   )
 }

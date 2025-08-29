@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const Footer = () => {
     return ( 
-<Navbar bg="light" variant="light" className="p-3 mt-5">
+<Navbar bg="light" variant="light" className="p-3 sticky-bottom">
   <Container fluid className="d-flex flex-column flex-md-row justify-content-between align-items-center">
     <Navbar.Text>
       &copy; 2025 <strong>espaces o+</strong> — Tous droits réservés
@@ -15,7 +15,6 @@ const Footer = () => {
         <Nav.Link href="/mentions-legales" >Mentions légales</Nav.Link>
         <Nav.Link href="/politique-confidentialite" >Confidentialité</Nav.Link>
         <Nav.Link href="/conditions-utilisation" >Conditions</Nav.Link>
-        <Nav.Link href="/contact" >Contact</Nav.Link>
       </Nav>
     </div>
   </Container>
