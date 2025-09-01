@@ -4,8 +4,9 @@ import { allCategory } from "../Services/categoryServices";
 import { Modal, Form, Button } from "react-bootstrap";
 import PlaceAutocomplete from "./PlaceAutocomplete";
 import "../Styles/modal.css"
+import { toast } from "react-toastify";
 
-const AddPlaceModal = ({ show, onHide }) => {
+const AddPlaceModal = ({ show, onHide, fetchContribution }) => {
   const [place, setPlace] = useState({
     name: "",
     address: "",
@@ -22,6 +23,8 @@ const AddPlaceModal = ({ show, onHide }) => {
     e.preventDefault();
     try {
       await addPlace(place);
+      fetchContribution();
+      toast.success("votre demande d'ajout est bien enregistré");
       // fermer la modal
       onHide(); 
     } catch (error) {

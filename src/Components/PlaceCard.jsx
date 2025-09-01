@@ -54,8 +54,11 @@ const PlaceCard = ({ place }) => {
             </Card.Subtitle>
             <Card.Text className="card-text">{item.address}</Card.Text>
             <Card.Text className="card-rating">
-              Note : {item.global_rating}
+              {item.global_rating && item.global_rating > 0
+                ? `Note : ${item.global_rating}`
+                : "Ce lieu n'a pas encore été noté"}
             </Card.Text>
+
             <Card.Link href={`/review/${item.id_place}`}>
               Voir les avis
             </Card.Link>

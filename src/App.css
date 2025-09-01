@@ -6,6 +6,22 @@ body {
   padding: 0;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  flex: 1;
+}
+
+
 /* Toast success */
 .Toastify__toast--success {
   background-color: var(--color-success) !important;

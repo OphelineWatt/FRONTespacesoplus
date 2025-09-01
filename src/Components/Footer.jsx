@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const Footer = () => {
     return ( 
-<Navbar bg="light" variant="light" className="p-3 sticky-bottom">
+<Navbar bg="light" variant="light" className="p-3">
   <Container fluid className="d-flex flex-column flex-md-row justify-content-between align-items-center">
     <Navbar.Text>
       &copy; 2025 <strong>espaces o+</strong> — Tous droits réservés

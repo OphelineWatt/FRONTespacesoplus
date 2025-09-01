@@ -12,6 +12,7 @@ import "../Styles/ProfilePage.css";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
+
 const ProfilePage = () => {
   const [showModalAddPlace, setShowModalAddPlace] = useState(false);
   const [users, setUsers] = useState([]);
@@ -180,6 +181,7 @@ const ProfilePage = () => {
       <AddPlaceModal
         show={showModalAddPlace}
         onHide={() => setShowModalAddPlace(false)}
+        fetchContribution={fetchContribution}
       />
     </div>
   );

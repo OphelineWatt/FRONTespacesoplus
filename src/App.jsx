@@ -22,38 +22,44 @@ import { ToastContainer, Bounce } from 'react-toastify';
 
 function App() {
   return (
-<BrowserRouter>
+    <BrowserRouter>
       <APIProvider
         apiKey={import.meta.env.VITE_MAPS_API_KEY}
-        solutionChannel='GMP_devsite_samples_v3_rgmautocomplete'
-        libraries={['places']}>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/application" element={<AppPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/admin" element={<AdminPage/>} />
-          <Route path="/review/:place_id" element={<ReviewPage/>} />
-        </Routes>
-        <Footer />
+        solutionChannel="GMP_devsite_samples_v3_rgmautocomplete"
+        libraries={['places']}
+      >
+        <div className="page-container">
+          <NavBar />
+          <div className="content-wrap">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/application" element={<AppPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/review/:place_id" element={<ReviewPage />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
       </APIProvider>
-              <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          transition={Bounce}
-        />
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </BrowserRouter>
-  )
+  );
 }
 
 export default App
