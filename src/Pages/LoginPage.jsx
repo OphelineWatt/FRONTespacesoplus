@@ -1,6 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
+import ForgottenPasswordModal from "../Components/ForgottenPasswordModal";
 
 
 import { login } from "../Services/userServices";
@@ -14,6 +15,8 @@ const LoginPage = () => {
     mail: "",
     password: "",
   });
+
+  const [showModalPassword, setShowModalPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -69,9 +72,15 @@ const LoginPage = () => {
           </Form>
           <div className="d-flex justify-content-end gap-3">
             <Card.Link href="/Register">Créer un compte</Card.Link>
+            <Card.Link onClick={() => setShowModalPassword(true)}>Mot de passe oublié ?</Card.Link>
           </div>
         </Card.Body>
       </Card>
+
+            <ForgottenPasswordModal
+        show={showModalPassword}
+        onHide={() => setShowModalPassword(false)}
+      />
       
     </div>
   );

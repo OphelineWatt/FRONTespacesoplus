@@ -18,6 +18,7 @@ import Footer from './Components/Footer';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { ToastContainer, Bounce } from 'react-toastify';
+import ResetPasswordPage from './Pages/ResetPasswordPage';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/review/:place_id" element={<ReviewPage />} />
+              <Route path="/passewordReset/:resetToken" element={<ResetPasswordPage />} />
             </Routes>
           </div>
           <Footer />

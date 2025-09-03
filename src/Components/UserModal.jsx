@@ -10,9 +10,13 @@ import {
   ToastContainer,
 } from "react-bootstrap";
 import { PencilSquare, CheckLg, XLg, KeyFill } from "react-bootstrap-icons";
-import "../Styles/modal.css"
+import "../Styles/modal.css";
 
-import { updateUsername, updateMail, updatePassword } from "../Services/userServices";
+import {
+  updateUsername,
+  updateMail,
+  updatePassword,
+} from "../Services/userServices";
 import { useNavigate } from "react-router-dom";
 
 const UserModal = ({ show, onHide, initialUser }) => {
@@ -56,7 +60,8 @@ const UserModal = ({ show, onHide, initialUser }) => {
 
       await Promise.all(updatePromises);
 
-      
+      localStorage.removeItem("token");
+      navigate("/login");
 
       setUser({
         username: editedUsername,
@@ -218,7 +223,10 @@ const UserModal = ({ show, onHide, initialUser }) => {
           <hr />
 
           <div className="d-grid gap-2">
-            <Button variant="primary" onClick={() => setIsEditingPassword(true)}>
+            <Button
+              variant="primary"
+              onClick={() => setIsEditingPassword(true)}
+            >
               <KeyFill className="me-2" />
               Modifier le mot de passe
             </Button>
@@ -232,7 +240,10 @@ const UserModal = ({ show, onHide, initialUser }) => {
                   type="password"
                   value={formPassword.oldPassword}
                   onChange={(e) =>
-                    setFormPassword({ ...formPassword, oldPassword: e.target.value })
+                    setFormPassword({
+                      ...formPassword,
+                      oldPassword: e.target.value,
+                    })
                   }
                   required
                 />
@@ -243,7 +254,10 @@ const UserModal = ({ show, onHide, initialUser }) => {
                   type="password"
                   value={formPassword.newPassword}
                   onChange={(e) =>
-                    setFormPassword({ ...formPassword, newPassword: e.target.value })
+                    setFormPassword({
+                      ...formPassword,
+                      newPassword: e.target.value,
+                    })
                   }
                   required
                 />

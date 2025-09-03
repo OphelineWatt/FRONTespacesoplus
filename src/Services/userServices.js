@@ -26,3 +26,13 @@ export const updatePassword= (data) => API.put('/profile/updatePassword',data,{
         Authorization: `${localStorage.getItem('token')}`
     }
 });
+
+
+export const forgottenPassword =  (data) => API.post('/forgottenPassword', data);
+
+
+export const passwordReset = (data, tokenReset) => API.post('/passwordReset', data, {
+            headers: {
+                Authorization: tokenReset
+            }
+        });

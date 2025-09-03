@@ -10,16 +10,14 @@ const PlaceCard = ({ place }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(checkToken());
   const [favorites, setFavorites] = useState([]);
 
-  // 🔄 Charger les favoris depuis le backend
+  // Charger les favoris depuis le backend
  useEffect(() => {
   const fetchFavorites = async () => {
     try {
       const response = await Favorites();
-      console.log("response.data[0] :", response.data[0]);
 
       if (Array.isArray(response.data[0])) {
         const favoriteIds = response.data[0].map((fav) => fav.place_id);
-        console.log("Favoris extraits :", favoriteIds);
         setFavorites(favoriteIds);
       } else {
         console.warn("response.data[0] n'est pas un tableau");
@@ -35,7 +33,7 @@ const PlaceCard = ({ place }) => {
 }, [isLoggedIn]);
 
 
-  // ➕ Ajouter un lieu aux favoris
+  // Ajouter un lieu aux favoris
   const handleAddFavorites = async (placeId) => {
     if (favorites.includes(placeId)) return;
 
@@ -53,7 +51,6 @@ const PlaceCard = ({ place }) => {
       {place.map((item, index) => {
         const placeId = parseInt(item.id_place, 10);
         const isFavorited = favorites.includes(placeId);
-        console.log("Lieu :", item.name, "ID :", item.id_place);
 
 
         return (
