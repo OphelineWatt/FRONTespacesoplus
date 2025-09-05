@@ -11,6 +11,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { jwtDecode } from "jwt-decode";
 import { checkToken } from "../Services/authService";
 
+import "../Styles/reviewPage.css"
+
 const ReviewPage = () => {
   const [showModalReview, setShowModalReview] = useState(false);
   const [reviews, setReviews] = useState([]);
@@ -38,6 +40,8 @@ const ReviewPage = () => {
     try {
       const response = await reviewsPlace(place_id);
       setReviews(response.data);
+      console.log(response.data);
+      
     } catch (error) {
       console.error("Erreur récupération des avis:", error);
     }
@@ -72,110 +76,126 @@ const ReviewPage = () => {
     setIsLoggedIn(checkToken());
   }, []);
 
-  return (
-    <div className="container mt-2">
-      {/* Croix de fermeture */}
-      <div className="position-absolute top-0 end-0 m-2">
+ return (
+  <div id="review-page-container" className="container mt-2">
+
+    {/* Croix de fermeture */}
+    <div id="close-button" className="d-flex flex-row-reverse">
+      <Button
+        variant="link"
+        size="sm"
+        onClick={() => navigate(-1)}
+        className="p-0 text-dark"
+        title="Retour"
+      >
+        <i className="bi bi-x-lg fs-5"></i>
+      </Button>
+    </div>
+
+    {/* Bouton d'ajout d'avis */}
+    {isLoggedIn && (
+      <div id="add-review-button" className="text-center my-3">
         <Button
-          variant="link"
+          variant="primary"
           size="sm"
-          onClick={() => navigate(-1)}
-          className="p-0 text-dark"
-          title="Retour"
+          onClick={() => setShowModalReview(true)}
         >
-          <i className="bi bi-x-lg fs-5"></i>
+          <i className="bi bi-chat-left-text me-2"></i>Donne ton avis
         </Button>
       </div>
-      {/* Bouton d'ajout d'avis */}
-      {isLoggedIn && (
-        <div className="text-center my-3">
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={() => setShowModalReview(true)}
-          >
-            <i className="bi bi-chat-left-text me-2"></i>Donne ton avis
-          </Button>
-        </div>
-      )}
+    )}
 
-      {/* Liste des avis */}
-      <div className="row justify-content-center">
-        <div className="col-12 col-md-10 col-lg-8">
-          {reviews.length > 0 ? (
-            reviews.map((review) => (
-              <Card key={review.id_reviews} className="mb-3 shadow-sm">
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <strong>Utilisateur :</strong> {review.username} <br />
-                    <strong>Note :</strong> {review.rating} <br />
-                    <strong>Date :</strong> {review.date} <br />
-                    <strong>Commentaire :</strong>
-                    {editingId === review.id_reviews ? (
+    {/* Liste des avis */}
+    <div id="review-list-wrapper" className="row justify-content-center">
+      <div id="review-list" className="col-12 col-md-10 col-lg-8">
+        {reviews.length > 0 ? (
+          reviews.map((review) => (
+            <Card
+              id={`review-card-${review.id_reviews}`}
+              key={review.id_reviews}
+              className="mb-3 shadow-sm review-card"
+            >
+              <ListGroup variant="flush">
+                <ListGroup.Item className="review-item">
+                  <strong>Utilisateur :</strong> {review.username} <br />
+                  <strong>Note :</strong> {review.rating} <br />
+                  <strong>Date :</strong> {review.date} <br />
+                  <strong>Commentaire :</strong>
+                  {editingId === review.id_reviews ? (
+                    <Form.Control
+                      id={`edit-textarea-${review.id_reviews}`}
+                      as="textarea"
+                      rows={3}
+                      value={editedText}
+                      onChange={(e) => setEditedText(e.target.value)}
+                      className="mt-2"
+                    />
+                  ) : (
+                    <p className="mt-2 text-break review-text">{review.text}</p>
+                  )}
+
+                  {/* Boutons d'action */}
+                  <div
+                    id={`review-actions-${review.id_reviews}`}
+                    className="d-flex justify-content-end gap-1 mt-2 flex-wrap"
+                  >
+                    {(admin === 1 || idUser === review.user_id) && (
                       <>
-                        <Form.Control
-                          as="textarea"
-                          rows={3}
-                          value={editedText}
-                          onChange={(e) => setEditedText(e.target.value)}
-                          className="mt-2"
-                        />
-                      </>
-                    ) : (
-                      <p className="mt-2 text-break">{review.text}</p>
-                    )}
-                    {/* Boutons plus petits et côte à côte */}
-                    <div className="d-flex justify-content-end gap-1 mt-2 flex-wrap">
-                      {(admin === 1 || idUser === review.user_id) && (
-                        <>
-                          <Button
-                            variant="outline-danger"
-                            size="sm"
-                            onClick={() => handleDelete(review.id_reviews)}
-                            title="Supprimer"
-                          >
-                            Supprimer <i className="bi bi-trash"></i>
-                          </Button>
-                          {editingId === review.id_reviews ? (
-                            <Button
-                              variant="outline-success"
-                              size="sm"
-                              onClick={() => handleSaveEdit(review.id_reviews)}
-                              title="Sauvegarder"
-                            >
-                              <i className="bi bi-check-lg"></i>
-                            </Button>
-                          ) : (
-                            <Button
-                              variant="primary" // bouton bleu
-                              size="sm"
-                              onClick={() => handleEditClick(review)}
-                              title="Modifier"
-                            >
-                              Modifier <i className="bi bi-pencil-square"></i>
-                            </Button>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
-            ))
-          ) : (
-            <p className="text-muted text-center">
-              Aucune contribution pour le moment.
-            </p>
-          )}
-        </div>
-      </div>
+                        <Button
+                          id={`delete-button-${review.id_reviews}`}
+                          variant="outline-danger"
+                          size="sm"
+                          onClick={() => handleDelete(review.id_reviews)}
+                          title="Supprimer"
+                        >
+                          Supprimer <i className="bi bi-trash"></i>
+                        </Button>
 
-      <ReviewModal
-        show={showModalReview}
-        onHide={() => setShowModalReview(false)}
-      />
+                        {editingId === review.id_reviews ? (
+                          <Button
+                            id={`save-button-${review.id_reviews}`}
+                            variant="outline-success"
+                            size="sm"
+                            onClick={() => handleSaveEdit(review.id_reviews)}
+                            title="Sauvegarder"
+                          >
+                            <i className="bi bi-check-lg"></i>
+                          </Button>
+                        ) : (
+                          <Button
+                            id={`edit-button-${review.id_reviews}`}
+                            variant="primary"
+                            size="sm"
+                            onClick={() => handleEditClick(review)}
+                            title="Modifier"
+                          >
+                            Modifier <i className="bi bi-pencil-square"></i>
+                          </Button>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
+          ))
+        ) : (
+          <p id="no-review-message" className="text-muted text-center">
+            Aucune contribution pour le moment.
+          </p>
+        )}
+      </div>
     </div>
-  );
+
+    {/* Modal d'ajout d'avis */}
+    <ReviewModal
+      id="review-modal"
+      show={showModalReview}
+      onHide={() => setShowModalReview(false)}
+    />
+  </div>
+);
+
 };
 
 export default ReviewPage;

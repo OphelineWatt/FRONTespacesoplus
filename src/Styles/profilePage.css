@@ -87,7 +87,21 @@
    scale: 1.2;
 }
 
-#profile-button-delete i{
-font-size: 1.25rem;
+#profile-button-itineraire{
+  color: var(--color-primary);
+  border-color: var(color-primary);
 }
+
+#profile-button-itineraire:hover {
+   background-color: white;
+   scale: 1.2;
+}
+
+#profile-button-itineraire,
+#profile-button-delete {
+  font-size: 0.85rem;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+}
+
 

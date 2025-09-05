@@ -1,0 +1,116 @@
+/* 🌈 Conteneur principal */
+#review-page-container {
+  background-color: var(--color-bg-alt); /* Fond pastel doux */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+
+#close-button button {
+  color: var(--color-text-dark);
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+#close-button button:hover {
+  transform: scale(1.1);
+}
+
+
+#add-review-button .btn-primary {
+  background-color: var(--color-primary);
+  border: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+#add-review-button .btn-primary:hover {
+  background-color: #1f5a91;
+}
+
+
+#review-list-wrapper {
+  margin-top: 1rem;
+}
+
+.review-card {
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: 10px;
+  padding: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.review-item {
+  background-color: transparent;
+  border: none;
+  font-size: 0.95rem;
+  color: var(--color-text-dark);
+}
+
+
+.review-text {
+  font-style: italic;
+  margin-top: 0.5rem;
+  color: var(--color-text-light);
+}
+
+
+[id^="review-actions-"] .btn {
+  font-size: 0.85rem;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  transition: all 0.2s ease;
+}
+
+[id^="delete-button-"] {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+[id^="delete-button-"]:hover {
+  background-color: var(--color-error);
+  color: white;
+}
+
+[id^="save-button-"] {
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+[id^="save-button-"]:hover {
+  background-color: var(--color-success);
+  color: white;
+}
+
+[id^="edit-button-"] {
+  background-color: var(--color-primary);
+  border: none;
+  color: white;
+}
+
+[id^="edit-button-"]:hover {
+  background-color: #1f5a91;
+}
+
+#no-review-message {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-text-light);
+  margin-top: 2rem;
+}
+
+
+#review-modal .modal-content {
+  border-radius: 12px;
+  background-color: var(--color-bg);
+}

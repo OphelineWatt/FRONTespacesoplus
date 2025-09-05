@@ -135,35 +135,52 @@ const ProfilePage = () => {
           <>
             {favorite.length > 0 ? (
               favorite.map((item) => (
-                <Card key={item.place_id} className="profile-card">
-                  <ListGroup variant="flush">
-                    <ListGroup.Item>
-                      <strong>Nom:</strong> {item.name} <br />
-                      <strong>Adresse:</strong> {item.address} <br />
-                      <strong>Catégorie:</strong> {item.label}
-                      <br />
-                      <div className="d-flex align-items-end justify-content-end">
-                        <OverlayTrigger
-                          placement="top"
-                          overlay={
-                            <Tooltip id="tooltip-top">
-                              Supprimer
-                            </Tooltip>
-                          }
-                        >
-                          <Button
-                            variant="outline-danger"
-                            size="sm"
-                            onClick={() => handleDeleteFavorite(item.place_id)}
-                            id="profile-button-delete"
-                          >
-                            <i class="bi bi-trash-fill"></i>
-                          </Button>
-                        </OverlayTrigger>
-                      </div>
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Card>
+<Card key={item.place_id} className="profile-card">
+  <ListGroup variant="flush">
+    <ListGroup.Item>
+      <strong>Nom:</strong> {item.name} <br />
+      <strong>Adresse:</strong> {item.address} <br />
+      <strong>Catégorie:</strong> {item.label}
+      <br />
+      <div className="d-flex align-items-end justify-content-between gap-2 mt-2">
+        {/* Bouton Itinéraire */}
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip id="tooltip-itineraire">Itinéraire</Tooltip>}
+        >
+          <Button
+            variant="outline-primary"
+            size="sm"
+            onClick={() =>
+              window.open(
+                `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(item.address)}`,
+                '_blank'
+              )
+            }
+            id="profile-button-itineraire"
+          >
+            <i className="bi bi-geo-alt-fill me-1"></i> Itinéraire
+          </Button>
+        </OverlayTrigger>
+        {/* Bouton Supprimer */}
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip id="tooltip-delete">Supprimer</Tooltip>}
+        >
+          <Button
+            variant="outline-danger"
+            size="sm"
+            onClick={() => handleDeleteFavorite(item.place_id)}
+            id="profile-button-delete"
+          >
+            <i className="bi bi-trash-fill"></i>
+          </Button>
+        </OverlayTrigger>
+
+      </div>
+    </ListGroup.Item>
+  </ListGroup>
+</Card>
               ))
             ) : (
               <p className="empty-message">Aucun favoris pour le moment.</p>

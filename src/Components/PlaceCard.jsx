@@ -11,27 +11,26 @@ const PlaceCard = ({ place }) => {
   const [favorites, setFavorites] = useState([]);
 
   // Charger les favoris depuis le backend
- useEffect(() => {
-  const fetchFavorites = async () => {
-    try {
-      const response = await Favorites();
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const response = await Favorites();
 
-      if (Array.isArray(response.data[0])) {
-        const favoriteIds = response.data[0].map((fav) => fav.place_id);
-        setFavorites(favoriteIds);
-      } else {
-        console.warn("response.data[0] n'est pas un tableau");
+        if (Array.isArray(response.data[0])) {
+          const favoriteIds = response.data[0].map((fav) => fav.place_id);
+          setFavorites(favoriteIds);
+        } else {
+          console.warn("response.data[0] n'est pas un tableau");
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des favoris", error);
       }
-    } catch (error) {
-      console.error("Erreur lors du chargement des favoris", error);
+    };
+
+    if (isLoggedIn) {
+      fetchFavorites();
     }
-  };
-
-  if (isLoggedIn) {
-    fetchFavorites();
-  }
-}, [isLoggedIn]);
-
+  }, [isLoggedIn]);
 
   // Ajouter un lieu aux favoris
   const handleAddFavorites = async (placeId) => {
@@ -46,12 +45,39 @@ const PlaceCard = ({ place }) => {
     }
   };
 
+  // transformer mes notes en étoile
+  const renderStars = (rating) => {
+    const maxStars = 5;
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5;
+    const emptyStars = maxStars - fullStars - (halfStar ? 1 : 0);
+
+    const stars = [];
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(
+        <i key={`full-${i}`} className="bi bi-star-fill text-warning"></i>
+      );
+    }
+
+    if (halfStar) {
+      stars.push(<i key="half" className="bi bi-star-half text-warning"></i>);
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(
+        <i key={`empty-${i}`} className="bi bi-star text-warning"></i>
+      );
+    }
+
+    return stars;
+  };
+
   return (
     <div className="place-card-container">
       {place.map((item, index) => {
         const placeId = parseInt(item.id_place, 10);
         const isFavorited = favorites.includes(placeId);
-
 
         return (
           <Card key={index} className="custom-card">
@@ -97,14 +123,14 @@ const PlaceCard = ({ place }) => {
               <Card.Text className="card-text">{item.address}</Card.Text>
 
               <Card.Text className="card-rating">
-                {item.global_rating && item.global_rating > 0
-                  ? `Note : ${item.global_rating}`
-                  : "Ce lieu n'a pas encore été noté"}
+                {item.global_rating && item.global_rating > 0 ? (
+                  <span>Note : {renderStars(item.global_rating)}</span>
+                ) : (
+                  "Ce lieu n'a pas encore été noté"
+                )}
               </Card.Text>
 
-              <Card.Link href={`/review/${placeId}`}>
-                Voir les avis
-              </Card.Link>
+              <Card.Link href={`/review/${placeId}`}>Voir les avis</Card.Link>
             </Card.Body>
           </Card>
         );
