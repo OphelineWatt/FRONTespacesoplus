@@ -11,6 +11,8 @@ import RegisterPage from './Pages/RegisterPage';
 import ProfilePage from './Pages/ProfilePage';
 import AdminPage from './Pages/AdminPage';
 import ReviewPage from './Pages/ReviewPage';
+import LegalNoticePage from './Pages/LegalNoticePage'
+import PrivacyPolicy from './Pages/PrivacyPolicy';
 
 
 import Footer from './Components/Footer';
@@ -41,6 +43,8 @@ function App() {
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/review/:place_id" element={<ReviewPage />} />
               <Route path="/passewordReset/:resetToken" element={<ResetPasswordPage />} />
+              <Route path="/legalNotice" element={<LegalNoticePage />} />
+              <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
             </Routes>
           </div>
           <Footer />

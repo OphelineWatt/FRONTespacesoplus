@@ -36,6 +36,7 @@ const PlaceTable = ({ places, fetchPlaces }) => {
 
   return (
     <div className="table-container">
+      <div >
       <Row className="mb-3 gy-2">
         <Col xs={12} md={6}>
           <SearchNamePlaces value={filterText} onChange={setFilterText} />
@@ -52,6 +53,7 @@ const PlaceTable = ({ places, fetchPlaces }) => {
           </Form.Select>
         </Col>
       </Row>
+      </div>
 
       <Table striped bordered hover>
         <thead>
