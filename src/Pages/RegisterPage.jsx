@@ -4,7 +4,7 @@ import { Button, Form, Card, InputGroup, ProgressBar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "../Styles/registerPage.css";
+import "../Styles/registerPage.css"; 
 
 const RegisterPage = () => {
   const [userData, setUserData] = useState({
@@ -13,6 +13,7 @@ const RegisterPage = () => {
     password: "",
     verify_password: "",
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -31,41 +32,42 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { username, mail, password, verify_password } = userData;
+
+    if (!username || !mail || !password || !verify_password) {
+      toast.error("Tous les champs sont obligatoires");
+      return;
+    }
+
+    if (password !== verify_password) {
+      toast.error("Les mots de passe ne correspondent pas");
+      return;
+    }
+
+    const emailRegex = /^(?=.{1,254}$)(?=.{1,64}@)(?!.*\.\.)[\p{L}\p{N}!#$%&'*+/=?^_`{|}~-]+(?:\.[\p{L}\p{N}!#$%&'*+/=?^_`{|}~-]+)*@(?:(?!-)[\p{L}\p{N}-]{1,63}(?<!-)\.)+[\p{L}]{2,63}$/u;
+    if (!emailRegex.test(mail)) {
+      toast.error("L'email n'est pas valide");
+      return;
+    }
+
     try {
-      const { username, mail, password, verify_password } = userData;
-
-      if (!username || !mail || !password || !verify_password) {
-        toast.error("Tous les champs sont obligatoires");
-        return;
-      }
-
-      if (password !== verify_password) {
-        toast.error("Les mots de passe ne correspondent pas");
-        return;
-      }
-
-      const emailRegex = /^(?=.{1,254}$)(?=.{1,64}@)(?!.*\.\.)[\p{L}\p{N}!#$%&'*+/=?^_`{|}~-]+(?:\.[\p{L}\p{N}!#$%&'*+/=?^_`{|}~-]+)*@(?:(?!-)[\p{L}\p{N}-]{1,63}(?<!-)\.)+[\p{L}]{2,63}$/u;
-      if (!emailRegex.test(mail)) {
-        toast.error("L'email n'est pas valide");
-        return;
-      }
-
       await register(userData);
       toast.success("Enregistrement réussi");
       navigate("/login");
     } catch (error) {
       console.error(error);
+      toast.error("Erreur lors de l'inscription");
     }
   };
 
   return (
-    <div className="register-page">
-      <h1>Inscription :</h1>
-      <Card style={{ width: "100%", maxWidth: "480px", margin: "auto" }}>
-        <Card.Body className="d-flex flex-column gap-3">
+    <div className="register-page container-fluid d-flex flex-column justify-content-center align-items-center min-vh-100">
+      <Card className="register-card w-100" style={{ maxWidth: "480px" }}>
+        <Card.Body>
+          <h2 className="text-center mb-4">Inscription</h2>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicUsername">
-              <Form.Label>Nom d'utilisateur :</Form.Label>
+              <Form.Label>Nom d'utilisateur</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Entrer votre nom"
@@ -78,7 +80,7 @@ const RegisterPage = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email :</Form.Label>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Entrer votre email"
@@ -91,7 +93,7 @@ const RegisterPage = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Mot de passe :</Form.Label>
+              <Form.Label>Mot de passe</Form.Label>
               <InputGroup>
                 <Form.Control
                   type={showPassword ? "text" : "password"}
@@ -125,7 +127,7 @@ const RegisterPage = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicVerifyPassword">
-              <Form.Label>Confirmation du mot de passe :</Form.Label>
+              <Form.Label>Confirmation du mot de passe</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Confirmer votre mot de passe"
@@ -137,13 +139,12 @@ const RegisterPage = () => {
               />
             </Form.Group>
 
-            <div className="d-flex justify-content-center">
-              <Button variant="primary" type="submit">
-                S'inscrire
-              </Button>
-            </div>
+            <Button variant="primary" type="submit" className="w-100">
+              S'inscrire
+            </Button>
           </Form>
-          <div className="d-flex justify-content-end gap-3">
+
+          <div className="d-flex justify-content-between mt-3">
             <Card.Link href="/login">Déjà un compte ? Connectez-vous</Card.Link>
           </div>
         </Card.Body>

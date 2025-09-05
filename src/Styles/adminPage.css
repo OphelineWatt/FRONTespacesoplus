@@ -1,0 +1,27 @@
+nav-tabs {
+  background-color: var(--color-bg) !; 
+  border-bottom: 2px solid var(--color-accent);
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+nav-tabs .nav-link {
+  background-color: var(--color-accent); /* Fond des onglets */
+  color: var(--color-text-dark);
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 6px 6px 0 0;
+  transition: background-color 0.3s ease;
+}
+
+nav-tabs nav-link:hover {
+  background-color: var(--color-secondary); /* Hover fun */
+  color: var(--color-text-dark);
+}
+
+nav-tabs nav-link.active {
+  background-color: var(--color-primary); /* Onglet actif */
+  color: white;
+  font-weight: bold;
+}
+

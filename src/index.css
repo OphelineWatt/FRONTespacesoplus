@@ -1,21 +1,22 @@
 :root {
   /* Couleurs principales */
-  --color-primary: #2A6FB2;       /* Bleu du logo */
-  --color-secondary: #E6F0FA;     /* Fond clair quadrillé */
-  --color-accent: #F4F9FF;        /* Blanc bleuté pour les zones larges */
-  
+  --color-primary: #5a85a6;       /* Corail punchy, énergique et chaleureux */
+  --color-secondary: #fcf5d2;     /* Jaune soleil, joyeux et lumineux */
+  --color-accent: #f6fffc;        /* Turquoise frais pour les zones larges */
+
   /* Couleurs de texte */
-  --color-text-dark: #1F2D3D;     /* Texte principal */
-  --color-text-light: #6C7A89;    /* Texte secondaire */
+  --color-text-dark: #1C1C1C;     /* Noir doux pour une lisibilité optimale */
+  --color-text-light: #5C5C5C;    /* Gris moyen pour les textes secondaires */
 
   /* Couleurs d’état ou d’interaction */
-  --color-success: #A3D9A5;       /* Vert doux pour les validations */
-  --color-warning: #F9D57E;       /* Jaune pastel pour les alertes */
-  --color-error: #F28B82;         /* Rouge doux pour les erreurs */
+  --color-success: #6BCB77;       /* Vert menthe pour les validations */
+  --color-warning: #FFD93D;       /* Jaune vif pour les alertes */
+  --color-error: #FF6F91;         /* Rose framboise pour les erreurs */
 
   /* Couleurs de fond */
-  --color-bg: #FFFFFF;            /* Fond global */
-  --color-bg-alt: #e0fcf3;        /* Fond alternatif ou section */
+  --color-bg: #FFFDF9;            /* Fond crème très clair, doux pour les yeux */
+  --color-bg-alt: #F0F9FF;        /* Bleu pastel pour les sections alternées */
 }
+
 
 

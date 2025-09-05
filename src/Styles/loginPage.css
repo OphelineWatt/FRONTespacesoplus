@@ -1,37 +1,36 @@
-.register-page {
+.login-page {
   background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   padding: 1rem;
 }
 
-.register-card {
+.login-card {
   border-radius: 1rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   padding: 2rem;
 }
 
-.register-card h2 {
+.login-card h2 {
   color: #1f5a90;
   font-weight: 600;
 }
 
-.register-card .form-control {
+.login-card .form-control {
   font-size: 1rem;
   padding: 0.75rem;
   border-radius: 0.5rem;
 }
 
-.register-card .btn {
+.login-card .btn {
   padding: 0.75rem;
   font-weight: 600;
   font-size: 1rem;
 }
 
-.register-card .card-link {
+.login-card .card-link {
   font-size: 0.9rem;
   color: #1f5a90;
 }
 
-.register-card .card-link:hover {
+.login-card .card-link:hover {
   text-decoration: underline;
 }
-

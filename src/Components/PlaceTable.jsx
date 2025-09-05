@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Button, Form, Table, Row, Col } from "react-bootstrap";
-import Toast from "react-bootstrap/Toast";
 import { deletePlace, updatePlace } from "../Services/placeServices";
 import SearchNamePlaces from "./SearchNamePlaces";
 
 import "../Styles/placeTable.css"
+import { toast } from "react-toastify";
 
 
 const PlaceTable = ({ places, fetchPlaces }) => {
   const [filterText, setFilterText] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
-  const [showToast, setShowToast] = useState(false);
+
 
   const handleDeletePlace = async (idPlace) => {
     try {
@@ -35,8 +35,8 @@ const PlaceTable = ({ places, fetchPlaces }) => {
   });
 
   return (
-    <div className="table-container">
-      <div >
+    <div className="table-container text-center">
+      <div className="d-flex flex-row justify-content-center " >
       <Row className="mb-3 gy-2">
         <Col xs={12} md={6}>
           <SearchNamePlaces value={filterText} onChange={setFilterText} />
@@ -78,10 +78,10 @@ const PlaceTable = ({ places, fetchPlaces }) => {
                     try {
                       await updatePlace(place.id_place, { status: newStatus });
                       fetchPlaces();
-                      setShowToast(true);
+                      toast.success("Modification du statut réussi");
                     } catch (error) {
                       console.error("Erreur lors de la maj du statut :", error);
-                      alert("Échec de la mise à jour du statut");
+                      toast.error("Echec de la mis à jour du statut");
                     }
                   }}
                 >
@@ -95,7 +95,6 @@ const PlaceTable = ({ places, fetchPlaces }) => {
                   variant="outline-danger"
                   size="sm"
                   onClick={() => handleDeletePlace(place.id_place)}
-                  className="d-flex align-items-center gap-1"
                 >
                   Supprimer
                 </Button>
@@ -104,18 +103,6 @@ const PlaceTable = ({ places, fetchPlaces }) => {
           ))}
         </tbody>
       </Table>
-      <Toast
-        onClose={() => setShowToast(false)}
-        show={showToast}
-        delay={3000}
-        autohide
-        className="toast-success"
-      >
-        <Toast.Header>
-          <strong className="me-auto">Statut</strong>
-        </Toast.Header>
-        <Toast.Body>Mise à jour réussie ! </Toast.Body>
-      </Toast>
     </div>
   );
 };

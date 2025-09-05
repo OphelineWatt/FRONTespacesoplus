@@ -9,6 +9,20 @@ export const profileUser= () => API.get('/profile',{
     }
 });
 
+export const allUsers= () => API.get('/allprofiles',{
+        headers:{
+        Authorization: `${localStorage.getItem('token')}`
+    }
+});
+
+export const deleteUser= (idUser) => API.delete(`/profile/deleteUsers/${idUser}`,{
+        headers:{
+        Authorization: `${localStorage.getItem('token')}`
+    }
+});
+
+
+
 export const updateUsername= (data) => API.put('/profile/updateUsername',data,{
         headers:{
         Authorization: `${localStorage.getItem('token')}`
