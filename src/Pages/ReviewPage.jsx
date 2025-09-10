@@ -47,9 +47,9 @@ const ReviewPage = () => {
     }
   };
 
-  const handleDelete = async (idReviews) => {
+  const handleDelete = async (idReview) => {
     try {
-      await deleteReviews(idReviews);
+      await deleteReviews(idReview);
       fetchReviews();
     } catch (error) {
       console.log(error);
@@ -76,6 +76,9 @@ const ReviewPage = () => {
     setIsLoggedIn(checkToken());
   }, []);
 
+  console.log(reviews);
+  
+
  return (
   <div id="review-page-container" className="container mt-2">
 
@@ -87,7 +90,7 @@ const ReviewPage = () => {
         onClick={() => navigate(-1)}
         className="p-0 text-dark"
         title="Retour"
-      >
+        >
         <i className="bi bi-x-lg fs-5"></i>
       </Button>
     </div>
@@ -118,6 +121,7 @@ const ReviewPage = () => {
               <ListGroup variant="flush">
                 <ListGroup.Item className="review-item">
                   <strong>Utilisateur :</strong> {review.username} <br />
+                  <strong>Lieu :</strong> {review.name} <br />
                   <strong>Note :</strong> {review.rating} <br />
                   <strong>Date :</strong> {review.date} <br />
                   <strong>Commentaire :</strong>
